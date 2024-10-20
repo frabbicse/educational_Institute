@@ -55,13 +55,24 @@ namespace API
             services.AddMediatR(typeof(List.Handler).Assembly);
 
             services.AddControllers();
-            services.AddMvc(opt => {
-                var policy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
 
-                opt.Filters.Add(new AuthorizeFilter(policy));
-            })
-                .AddFluentValidation(config => config.RegisterValidatorsFromAssemblyContaining<Create>())
-                .SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
+
+            services.AddEndpointsApiExplorer();
+            //services.AddSwaggerGen();
+            services.AddSwaggerGen(options =>
+            {
+                options.CustomSchemaIds(type => type.ToString());
+            });
+
+
+            //services.AddMvcCore(opt =>
+            //{
+            //    var policy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
+
+            //    opt.Filters.Add(new AuthorizeFilter(policy));
+            //})
+            //    .AddFluentValidation(config => config.RegisterValidatorsFromAssemblyContaining<Create>())
+            //    .SetCompatibilityVersion(CompatibilityVersion.Latest);
 
             // services.AddIdentityCore<AppUser>()
             // .AddRoles<IdentityRole>()
@@ -72,9 +83,9 @@ namespace API
             var identityBuilder = new IdentityBuilder(builder.UserType, builder.Services);
             identityBuilder.AddEntityFrameworkStores<ApplicationDataContext>();
             identityBuilder.AddSignInManager<SignInManager<AppUser>>();
-
+            //dotnet user-secrets set "TokenKey" "university-management"
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["TokenKey"]));
-           
+
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             .AddJwtBearer(opt =>
             {
@@ -101,6 +112,8 @@ namespace API
             if (env.IsDevelopment())
             {
                 //app.UseDeveloperExceptionPage();
+                app.UseSwagger();
+                app.UseSwaggerUI();
             }
 
             app.UseHsts();
@@ -108,7 +121,7 @@ namespace API
 
 
             app.UseRouting();
-            app.UseAuthentication(); 
+            app.UseAuthentication();
             app.UseCors("CorsPolicy");
             app.UseAuthorization();
 
