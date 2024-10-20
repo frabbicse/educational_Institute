@@ -95,13 +95,13 @@ export default class DepartmentStore {
             this.loadingInitial = true;
             try {
                 department = await agent.Departments.detail(id);
-                runInAction('getting department', () => {
+                runInAction( () => {
                     this.department = department;
                     this.loadingInitial = false
                 })
             }
             catch (error) {
-                runInAction('get activity error', () => {
+                runInAction( () => {
                     this.loadingInitial = false
                 });
                 throw error;
