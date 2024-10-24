@@ -3,9 +3,11 @@ import { IUser, IUserFormValues } from "../application/models/user";
 import agent from "../api/agent";
 import { RootStore } from "./rootStore";
 import { useNavigate } from "react-router";
-// import { history } from "..";
+import { createBrowserHistory } from 'history';
+export const history = createBrowserHistory();
+
 export default class UserStore {
-     rootStore: RootStore
+    rootStore: RootStore
     constructor(rootStore: RootStore) {
         this.rootStore = rootStore;
     }
@@ -15,26 +17,32 @@ export default class UserStore {
 
     @action login = async (values: IUserFormValues) => {
         try {
-            const navigate = useNavigate();
             const user = await agent.User.login(values);
             runInAction(() => {
                 this.user = user;
             });
             this.rootStore.commonStore.setToken(user.token);
-            this.rootStore.modalStore.closeModal();
-            navigate('/dashboard');
+
+            if (this.rootStore.commonStore.navigate) {
+                this.rootStore.commonStore.navigate('/dashboard');
+            }
+
         } catch (error) {
+            console.log(error);
+
             throw error;
         }
     }
 
     @action register = async (values: IUserFormValues) => {
         try {
-            const navigate = useNavigate();
+
             const user = await agent.User.register(values);
             this.rootStore.commonStore.setToken(user.token);
             this.rootStore.modalStore.closeModal();
-            navigate('/dashboard');
+            if (this.rootStore.commonStore.navigate) {
+                this.rootStore.commonStore.navigate('/dashboard');
+            }
         }
         catch (error) {
             throw error;
@@ -53,9 +61,11 @@ export default class UserStore {
     }
 
     @action logout = () => {
-        const navigate = useNavigate();
+
         this.rootStore.commonStore.setToken(null!);
         this.user = null;
-        navigate('/');
+        if (this.rootStore.commonStore.navigate) {
+            this.rootStore.commonStore.navigate('/');
+        }
     }
 }

@@ -83,7 +83,7 @@ namespace API
             var identityBuilder = new IdentityBuilder(builder.UserType, builder.Services);
             identityBuilder.AddEntityFrameworkStores<ApplicationDataContext>();
             identityBuilder.AddSignInManager<SignInManager<AppUser>>();
-            //dotnet user-secrets set "TokenKey" "university-management"
+            //dotnet user-secrets set "TokenKey" "university-management-system-dotnet-project" -p api
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["TokenKey"]));
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)

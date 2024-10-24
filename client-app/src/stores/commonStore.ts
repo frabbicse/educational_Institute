@@ -22,6 +22,12 @@ export default class CommonStore {
     @observable token: string | null = window.localStorage.getItem('jwt');
     @observable appLoaded = false;
 
+    @observable navigate: Function | null = null;
+
+    @action setNavigate = (navigate: Function) => {
+        this.navigate = navigate;
+    }
+
     @action setToken = (token: string) => {
         this.token = token;
     }

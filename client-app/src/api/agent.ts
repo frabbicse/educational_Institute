@@ -4,8 +4,10 @@ import { IUserFormValues, IUser } from '../application/models/user';
 // import { history } from '..';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router';
+import { createBrowserHistory } from 'history';
+export const history = createBrowserHistory();
 
-axios.defaults.baseURL = 'http://localhost:5000/api';
+axios.defaults.baseURL = 'http://localhost:62474/api';
 
 axios.interceptors.request.use((config) => {
     const token = window.localStorage.getItem('jwt');
@@ -17,7 +19,6 @@ axios.interceptors.request.use((config) => {
 
 
 axios.interceptors.response.use(undefined, error => {
-    const navigate = useNavigate();
 
     if (error.message === 'Network Error' && !error.response) {
         toast.error('Network Error - make sure api is running');
@@ -25,10 +26,10 @@ axios.interceptors.response.use(undefined, error => {
 
     const { status, config, data } = error.response;
     if (status === 404) {
-        navigate('/notfound');
+        history.push('/notfound');
     }
     if (status === 400 && config.method === 'get' && data.undefined) {
-        navigate('/notfound');
+        history.push('/notfound');
     }
     if (status === 401) {
         toast.error("You are not authorized.");

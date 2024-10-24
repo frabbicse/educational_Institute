@@ -1,5 +1,5 @@
 import React, { Fragment, useContext, useEffect } from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useNavigate } from "react-router-dom";
 import { HomePage } from "./features/home/HomePage";
 import { NavBar } from "./features/nav/NavBar";
 import { Container } from "semantic-ui-react";
@@ -16,9 +16,14 @@ import ModalContainer from "./common/modals/ModalContainer";
 import RegisterForm from "./features/user/RegisterForm";
 
 export const App = () => {
+  const navigate = useNavigate();
   const rootStore = useContext(RootStoreContext);
   const { setAppLoaded, token, appLoaded } = rootStore.commonStore;
   const { getUser } = rootStore.userStore;
+
+  useEffect(() => {
+    rootStore.commonStore.setNavigate(navigate); // Set navigate globally
+  }, [navigate, rootStore]);
 
   useEffect(() => {
     if (token) {
@@ -32,7 +37,7 @@ export const App = () => {
 
   return (
     <>
-      <ModalContainer />
+      {/* <ModalContainer /> */}
       <ToastContainer position="bottom-right" />
       {/* <Route path="/" element={<HomePage />} /> */}
 
