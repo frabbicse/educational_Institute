@@ -7,8 +7,9 @@ import { LoadingComponent } from "../../layout/LoadingComponent";
 import DepartmentList from "./DepartmentList";
 
 import { Grid } from "semantic-ui-react";
+import DepartmentForm from "./DepartmentForm";
 
-const DepartmentDashboard = () => {
+const DepartmentDashboard = (props: any) => {
   const rootStore = useContext(RootStoreContext);
   const { loadDepartments, loadingInitial } = rootStore.departmentStore;
 
@@ -20,9 +21,16 @@ const DepartmentDashboard = () => {
     return <LoadingComponent content="Loading Departments...." />;
   }
 
+  let initFormState = {
+    id: 0,
+    name: "",
+    code: "",
+  };
   return (
     <Grid>
-      <Grid.Column width={6}></Grid.Column>
+      <Grid.Column width={6}>
+        <DepartmentForm />
+      </Grid.Column>
       <Grid.Column width={10}>
         <DepartmentList />
       </Grid.Column>

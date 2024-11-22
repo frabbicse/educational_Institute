@@ -1,19 +1,20 @@
-import React, { useContext } from 'react'
-import { Grid, Table, Button } from 'semantic-ui-react';
+import React, { useContext } from "react";
+import { Grid, Table, Button } from "semantic-ui-react";
 
-import { observer } from 'mobx-react-lite';
+import { observer } from "mobx-react-lite";
 
-import { RootStoreContext } from '../../stores/rootStore';
+import { RootStoreContext } from "../../stores/rootStore";
 
-const DepartmetnList: React.FC = () => {
+const DepartmetnList = () => {
   const rootStore = useContext(RootStoreContext);
-  const { department: department, departments, loadEditForm } = rootStore.departmentStore;
+  const { departmentList, loadEditForm } = rootStore.departmentStore;
+
+  console.log("Department data", departmentList);
 
   return (
-    
     <Grid>
       <Grid.Column width={10}>
-        <Table celled >
+        <Table celled>
           <Table.Header>
             <Table.Row>
               <Table.HeaderCell>Department Name</Table.HeaderCell>
@@ -22,28 +23,21 @@ const DepartmetnList: React.FC = () => {
             </Table.Row>
           </Table.Header>
           <Table.Body>
-            {
-              departments.map(department => (
-                <Table.Row key={department.id}>
-                  <Table.Cell >{department.name} </Table.Cell>
-                  <Table.Cell>{department.code}</Table.Cell>
-                  <Table.Cell>
-
-                    <Button
-                      name={department.id}
-                      loading={rootStore.departmentStore.submitting}
-                      onClick={(e) => loadEditForm(department.id)}
-                      color='blue' content='Edit' />
-                    {/* <Button onClick = {(e) => deleteDepartment(e, department.id)} color='red' content='Delete' /> */}
-
-                  </Table.Cell>
-                </Table.Row>
-              ))}
+            {departmentList.map((department) => (
+              <Table.Row key={department.departmentId}>
+                <Table.Cell>{department.name} </Table.Cell>
+                <Table.Cell>{department.code}</Table.Cell>
+                <Table.Cell>
+                  <Button name={department.departmentId} loading={rootStore.departmentStore.submitting} onClick={(e) => loadEditForm(department.departmentId)} color="blue" content="Edit" />
+                  {/* <Button onClick = {(e) => deleteDepartment(e, department.id)} color='red' content='Delete' /> */}
+                </Table.Cell>
+              </Table.Row>
+            ))}
           </Table.Body>
         </Table>
       </Grid.Column>
     </Grid>
-  )
-}
+  );
+};
 
 export default observer(DepartmetnList);

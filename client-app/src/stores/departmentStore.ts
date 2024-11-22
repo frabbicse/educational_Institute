@@ -1,4 +1,4 @@
-import { observable, action, configure, runInAction } from 'mobx';
+import { observable, action, configure, runInAction, computed } from 'mobx';
 import { IDepartment } from '../application/models/department';
 import { SyntheticEvent } from 'react';
 import agent from '../api/agent';
@@ -18,17 +18,24 @@ export default class DepartmentStore {
     @observable submitting = false;
     @observable target = '';
 
+
+    @computed get departmentList() {
+        return Array.from(this.departments.values());
+    }
+
     @action loadDepartments = async () => {
         this.loadingInitial = true;
         try {
             const departments = await agent.Departments.list();
-            console.log(departments);
-            departments.forEach(department => {
-                this.departments.push(department)
 
-                //this.departmentRegistry.set(department.id, department);
-            })
+            runInAction(() => {
+                departments.forEach(department => {
+                    this.departments.push(department)
+                    this.departmentRegistry.set(department.departmentId, department);
+                })
+            });
             this.loadingInitial = false;
+
         } catch (error) {
             // this.loadingInitial = true;
             throw error;
@@ -56,7 +63,7 @@ export default class DepartmentStore {
 
         try {
             agent.Departments.update(department);
-            this.departmentRegistry.set(department.id, department);
+            this.departmentRegistry.set(department.departmentId, department);
             this.department = department;
             this.submitting = false;
         } catch (error) {
@@ -95,13 +102,13 @@ export default class DepartmentStore {
             this.loadingInitial = true;
             try {
                 department = await agent.Departments.detail(id);
-                runInAction( () => {
+                runInAction(() => {
                     this.department = department;
                     this.loadingInitial = false
                 })
             }
             catch (error) {
-                runInAction( () => {
+                runInAction(() => {
                     this.loadingInitial = false
                 });
                 throw error;

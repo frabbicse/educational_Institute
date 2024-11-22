@@ -1,68 +1,45 @@
-import React, { useState, ChangeEvent, useContext } from 'react'
-import { Segment, Form, Button } from 'semantic-ui-react';
-import { IDepartment } from '../../application/models/department';
-import { RootStoreContext } from '../../stores/rootStore';
+import React, { useContext } from "react";
+import { Form, Button } from "semantic-ui-react";
+import { IDepartment } from "../../application/models/department";
+import { RootStoreContext } from "../../stores/rootStore";
+import { combineValidators, isRequired } from "revalidate";
+import { Form as FinalForm, Field } from "react-final-form";
+import { FORM_ERROR } from "final-form";
+import TextInput from "../../common/form/TextInput";
+import ErrorMessage from "../../common/form/ErrorMessage";
 
 interface IProps {
-    department: IDepartment | null;
+  department: IDepartment | null;
 }
+const validate = combineValidators({
+  name: isRequired("name"),
+  code: isRequired("code"),
+});
 
-const DepartmentForm: React.FC<IProps> = ({ department: initFormState }) => {
+const DepartmentForm = () => {
+  const rootStore = useContext(RootStoreContext);
 
-    const rootStore = useContext(RootStoreContext);
+  const { createDepartment, department } = rootStore.departmentStore;
 
+  console.log("edit data", department);
 
-    const { createDepartment, editDepartment } = rootStore.departmentStore;
-    const initial = () => {
-        if (initFormState) {
-            return initFormState;
-        }
-        else {
-            return {
-                id: 0,
-                name: '',
-                code: ''
-            };
-        }
-    };
-
-    const [departmentt, setDepartment] = useState<IDepartment>(initial);
-
-    const handleSubmit = (e: any) => {
-        if (departmentt.id === 0) {
-            let newDepartment = {
-                ...departmentt
-            }
-            createDepartment(newDepartment);
-        }
-        else {
-            editDepartment(departmentt);
-        }
-        setDepartment(initial)
-    }
-
-    const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
-        const { name, value } = event.target;
-        setDepartment({ ...departmentt, [name]: value })
-    }
-
-    return (
-        <Segment clearing>
-            <Form onSubmit={handleSubmit}>
-                <Form.Input
-                    onChange={handleInputChange}
-                    name='name'
-                    placeholder='name'
-                    value={departmentt.name} />
-                <Form.Input
-                    onChange={handleInputChange}
-                    name='code'
-                    placeholder='code'
-                    value={departmentt.code} />
-                <Button loading={rootStore.departmentStore.submitting} floated='right' positive type='submit' content='Save' />
-
-            </Form>
-        </Segment>
-    )
-}
+  return (
+    <FinalForm
+      onSubmit={(values: IDepartment) =>
+        createDepartment(values).catch((error) => ({
+          [FORM_ERROR]: error,
+        }))
+      }
+      validate={validate}
+      render={({ handleSubmit, submitting, submitError, invalid, pristine, dirtyFieldsSinceLastSubmit }) => (
+        <Form onSubmit={handleSubmit} error>
+          <Field component={TextInput} name="name" placeholder="name" value={department?.name} />
+          <Field component={TextInput} name="code" placeholder="code" value={department?.code} />
+          {submitError && !dirtyFieldsSinceLastSubmit && <ErrorMessage error={submitError} text="Enter name and code" />}
+          <Button loading={submitting} floated="right" positive type="submit" content="Save" />
+        </Form>
+      )}
+    />
+  );
+};
 export default DepartmentForm;

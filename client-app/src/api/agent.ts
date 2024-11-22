@@ -5,6 +5,7 @@ import { IUserFormValues, IUser } from '../application/models/user';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router';
 import { createBrowserHistory } from 'history';
+import { ICourse } from '../application/models/course';
 export const history = createBrowserHistory();
 
 axios.defaults.baseURL = 'http://localhost:62474/api';
@@ -57,7 +58,7 @@ const Departments = {
         requests.get(`/department/${id}`)
     },
     create: (department: IDepartment) => requests.post('/department', department),
-    update: (department: IDepartment) => requests.put(`/department/${department.id}`, department),
+    update: (department: IDepartment) => requests.put(`/department/${department.departmentId}`, department),
     delete: (id: number) => requests.delete(`/department/${id}`)
 };
 
@@ -67,6 +68,17 @@ const User = {
     register: (user: IUserFormValues): Promise<IUser> => requests.post(`/user/register`, user),
 }
 
+
+const Course = {
+    // list: (): Promise<IDepartment[]> => requests.get('/department'),
+    // detail: (id: number) => {
+    //     requests.get(`/department/${id}`)
+    // },
+    create: (course: ICourse) => requests.post('/course', course),
+    // update: (department: IDepartment) => requests.put(`/department/${department.departmentId}`, department),
+    // delete: (id: number) => requests.delete(`/department/${id}`)
+};
+
 export default {
-    Departments, User
+    Departments, User, Course
 } 
