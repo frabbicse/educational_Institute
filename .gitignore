@@ -58,3 +58,4 @@ Thumbs.db
 /Persistence/bin
 /Persistence/obj
 /.vs
+/client-app/.vscode/launch.json
