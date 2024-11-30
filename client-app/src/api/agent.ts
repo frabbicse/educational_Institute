@@ -6,6 +6,7 @@ import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router';
 import { createBrowserHistory } from 'history';
 import { ICourse } from '../application/models/course';
+import { ISemester } from '../application/models/semester';
 export const history = createBrowserHistory();
 
 axios.defaults.baseURL = 'http://localhost:62474/api';
@@ -79,6 +80,11 @@ const Course = {
     // delete: (id: number) => requests.delete(`/department/${id}`)
 };
 
+
+const Semester = {
+    list: (): Promise<ISemester> => requests.get('/semester')
+}
+
 export default {
-    Departments, User, Course
+    Departments, User, Course, Semester
 } 

@@ -5,6 +5,7 @@ import { configure } from "mobx";
 import CommonStore from "./commonStore";
 import ModalStore from "./modalStore";
 import CourseStore from "./courseStore";
+import SemesterStore from "./SemesterStore";
 
 configure({ enforceActions: 'always' });
 
@@ -14,6 +15,7 @@ export class RootStore {
     commonStore: CommonStore;
     modalStore: ModalStore;
     courseStore: CourseStore;
+    semesterStore: SemesterStore
 
     constructor() {
         this.userStore = new UserStore(this);
@@ -21,6 +23,7 @@ export class RootStore {
         this.commonStore = new CommonStore(this);
         this.modalStore = new ModalStore(this);
         this.courseStore = new CourseStore(this);
+        this.semesterStore = new SemesterStore(this);
     }
 }
 

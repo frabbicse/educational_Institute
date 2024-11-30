@@ -8,6 +8,7 @@ import ScrollToTop from "./layout/ScrollToTop";
 import { createMemoryHistory } from "history";
 import "react-toastify/dist/ReactToastify.min.css";
 import { BrowserRouter } from "react-router-dom";
+import "semantic-ui-css/semantic.min.css";
 
 // export const history = createMemoryHistory();
 const root = ReactDOM.createRoot(document.getElementById("root") as HTMLDivElement);

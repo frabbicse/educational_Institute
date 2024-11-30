@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Button, Dropdown, DropdownItem, Form, FormDropdown } from "semantic-ui-react";
 import { Field, Form as FinalForm } from "react-final-form";
 import { ICourse } from "../../application/models/course";
@@ -7,6 +7,7 @@ import { combineValidators, isRequired } from "revalidate";
 import { RootStoreContext } from "../../stores/rootStore";
 import TextInput from "../../common/form/TextInput";
 import { TextAreaInput } from "../../common/form/TextAreaInput";
+import { log } from "console";
 
 interface IProps {
   course: ICourse | null;
@@ -17,15 +18,30 @@ const validate = combineValidators({
   code: isRequired("course code"),
   credit: isRequired("course credit"),
 });
-const genderOptions = [
-  { key: "m", text: "Male", value: "male" },
-  { key: "f", text: "Female", value: "female" },
-  { key: "o", text: "Other", value: "other" },
-];
 
 const CourseForm = () => {
   const rootStore = useContext(RootStoreContext);
   const { createCourse } = rootStore.courseStore;
+  const { departments } = rootStore.departmentStore;
+  const { semesterList } = rootStore.semesterStore;
+
+  console.log(semesterList,"semesterlist");
+  
+
+  const departmentOptions = departments
+    .filter((item) => item.name) // Filter out items without a name
+    .map((item) => ({
+      key: item.departmentId.toString(), // Use departmentId as the key
+      text: item.name, // Use the name as the text
+      value: item.departmentId, // Use departmentId as the value
+    }));
+  const semesterOptions = semesterList
+    .filter((item) => item.Name) // Filter out items without a name
+    .map((item) => ({
+      key: item.SemesterId.toString(), // Use departmentId as the key
+      text: item.Name, // Use the name as the text
+      value: item.SemesterId, // Use departmentId as the value
+    }));
 
   return (
     <FinalForm
@@ -37,8 +53,8 @@ const CourseForm = () => {
           <Field component={TextInput} name="name" placeholder="Name" />
           <Field component={TextInput} name="credit" placeholder="Credit" />
           <Field component={TextAreaInput} name="description" placeholder="Description" />
-          <Field component={FormDropdown} name="department" placeholder="Select Department" options={genderOptions} />
-          <Field component={FormDropdown} name="semester" placeholder="Select Semester" options={genderOptions} label={{ htmlFor: "form-select-control-gender" }} />
+          <Dropdown fluid selection placeholder="Select Department" options={departmentOptions} />
+          <Dropdown fluid selection name="semester" placeholder="Select Semester" options={semesterOptions} />
 
           <Button type="submit">Submit</Button>
         </Form>
