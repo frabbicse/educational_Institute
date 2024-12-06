@@ -1,33 +1,31 @@
 import React, { useContext, useEffect } from "react";
 import { Grid, GridColumn } from "semantic-ui-react";
-import CourseForm from "./CourseForm";
+
 import { observer } from "mobx-react-lite";
+import SemesterForm from "./SemesterForm";
+import SemesterList from "./SemesterList";
 import { RootStoreContext } from "../../stores/rootStore";
-import CourseList from "./CourseList";
 
-const Course = () => {
+const Semester = () => {
   const rootStore = useContext(RootStoreContext);
-
-  const { loadCourses } = rootStore.courseStore;
   const { loadSemesters } = rootStore.semesterStore;
-  const { loadDepartments } = rootStore.departmentStore;
 
   useEffect(() => {
-    loadCourses();
     loadSemesters();
-    loadDepartments();
-  }, [loadCourses, loadSemesters, loadDepartments]);
+  }, [loadSemesters]);
 
   return (
     <Grid>
-      <GridColumn width={7}>
-        <CourseForm />
+      <GridColumn width={2}></GridColumn>
+      <GridColumn width={5}>
+        <SemesterForm />
       </GridColumn>
-      <GridColumn width={9}>
-        <CourseList />
+      <GridColumn width={5}>
+        <SemesterList />
       </GridColumn>
+      <GridColumn width={2}></GridColumn>
     </Grid>
   );
 };
 
-export default observer(Course);
+export default observer(Semester);

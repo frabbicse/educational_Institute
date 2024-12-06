@@ -16,6 +16,7 @@ import ModalContainer from "./common/modals/ModalContainer";
 import RegisterForm from "./features/user/RegisterForm";
 import DepartmentDashboard from "./features/departments/DepartmentDashboard";
 import Course from "./features/Course/Course";
+import Semester from "./features/semester/Semester";
 
 export const App = () => {
   const navigate = useNavigate();
@@ -52,8 +53,10 @@ export const App = () => {
 
           <Route path="/login" element={<LoginForm />} />
           <Route path="/register" element={<RegisterForm />} />
+
           <Route path="/department" element={<DepartmentDashboard />} />
           <Route path="/course" element={<Course />} />
+          <Route path="/semester" element={<Semester />} />
           <Route element={<NotFound />} />
         </Routes>
       </Container>

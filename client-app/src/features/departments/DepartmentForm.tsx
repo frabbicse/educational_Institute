@@ -21,8 +21,6 @@ const DepartmentForm = () => {
 
   const { createDepartment, department } = rootStore.departmentStore;
 
-  console.log("edit data", department);
-
   return (
     <FinalForm
       onSubmit={(values: IDepartment) =>

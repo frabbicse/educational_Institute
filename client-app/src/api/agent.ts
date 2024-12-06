@@ -9,7 +9,7 @@ import { ICourse } from '../application/models/course';
 import { ISemester } from '../application/models/semester';
 export const history = createBrowserHistory();
 
-axios.defaults.baseURL = 'http://localhost:62474/api';
+axios.defaults.baseURL = 'https://localhost:44318/api';
 
 axios.interceptors.request.use((config) => {
     const token = window.localStorage.getItem('jwt');
@@ -71,7 +71,7 @@ const User = {
 
 
 const Course = {
-    // list: (): Promise<IDepartment[]> => requests.get('/department'),
+    list: (): Promise<ICourse[]> => requests.get('/course'),
     // detail: (id: number) => {
     //     requests.get(`/department/${id}`)
     // },
@@ -82,7 +82,8 @@ const Course = {
 
 
 const Semester = {
-    list: (): Promise<ISemester> => requests.get('/semester')
+    list: (): Promise<ISemester> => requests.get('/semester'),
+    create: (semester: ISemester): Promise<ISemester> => requests.post('/semester', semester)
 }
 
 export default {

@@ -5,7 +5,7 @@ export interface ICourse {
     credit: number,
     description: string,
     departmentId: number,
-    departmentName: string,
+    deptName: string,
     semesterId: number,
     semesterName: string,
     isActive: boolean

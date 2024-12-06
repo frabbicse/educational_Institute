@@ -9,8 +9,6 @@ const DepartmetnList = () => {
   const rootStore = useContext(RootStoreContext);
   const { departmentList, loadEditForm } = rootStore.departmentStore;
 
-  console.log("Department data", departmentList);
-
   return (
     <Grid>
       <Grid.Column width={10}>

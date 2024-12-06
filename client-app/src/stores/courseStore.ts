@@ -1,4 +1,4 @@
-import { action, observable } from "mobx";
+import { action, computed, observable, runInAction } from "mobx";
 import { RootStore } from "./rootStore";
 import { ICourse } from "../application/models/course";
 import agent from "../api/agent";
@@ -16,10 +16,33 @@ export default class CourseStore {
     @observable submitting = false;
     @observable target = '';
 
+    @computed get courseList() {
+        return Array.from(this.courses.values());
+    }
+
+    @action loadCourses = async () => {
+        try {
+            this.loadingInitial = true;
+            const courses = await agent.Course.list();
+            runInAction(() => {
+                courses.forEach((course) => {
+                    this.courses.push(course);
+
+                })
+            });
+            this.loadingInitial = false;
+        } catch (error) {
+            this.loadingInitial = false;
+            throw error;
+        }
+    }
+
     @action createCourse = async (course: ICourse) => {
         try {
             this.submitting = true;
-            await agent.Course.create(course);
+            console.log("course", course);
+
+            // await agent.Course.create(course);
             this.courses.push(course);
             this.submitting = false
         } catch (error) {
