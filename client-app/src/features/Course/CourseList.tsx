@@ -25,6 +25,7 @@ const CourseList = () => {
             {courseList &&
               courseList.map((course, indx) => (
                 <Table.Row>
+                  <Table.Cell>{indx + 1}</Table.Cell>
                   <Table.Cell>{course?.name}</Table.Cell>
                   <Table.Cell>{course?.code}</Table.Cell>
                   <Table.Cell>{course?.credit}</Table.Cell>

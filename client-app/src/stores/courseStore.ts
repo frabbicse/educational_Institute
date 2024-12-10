@@ -24,6 +24,8 @@ export default class CourseStore {
         try {
             this.loadingInitial = true;
             const courses = await agent.Course.list();
+            console.log("Courses", courses);
+
             runInAction(() => {
                 courses.forEach((course) => {
                     this.courses.push(course);
@@ -42,7 +44,7 @@ export default class CourseStore {
             this.submitting = true;
             console.log("course", course);
 
-            // await agent.Course.create(course);
+            await agent.Course.create(course);
             this.courses.push(course);
             this.submitting = false
         } catch (error) {

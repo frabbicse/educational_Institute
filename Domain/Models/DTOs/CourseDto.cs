@@ -15,9 +15,9 @@ namespace Domain.Models.DTOs
         public string Name { get; set; } 
         public double Credit { get; set; }
         public string Description { get; set; } 
-        public int  DeptId { get; set; } 
+        public int DepartmentId { get; set; } 
         public string DeptName { get; set; } 
-        public int SemId { get; set; } 
+        public int SemesterId { get; set; } 
         public string SemesterName { get; set; }         
   
     }

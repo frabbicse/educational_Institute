@@ -18,8 +18,8 @@ namespace Application.Courses
             public string Name { get; set; }
             public double Credit { get; set; }
             public string Description { get; set; }
-            public int DeptId { get; set; }
-            public int SemId { get; set; }
+            public int DepartmentId { get; set; }
+            public int SemesterId { get; set; }
             public bool IsActive { get; set; }
         }
 
@@ -35,8 +35,8 @@ namespace Application.Courses
                      .InclusiveBetween(.5,5);
                 RuleFor(x => x.Code).NotEmpty().WithMessage("enter code");
 
-                RuleFor(x => x.DeptId).NotEmpty().WithMessage("select one");
-                RuleFor(x => x.SemId).NotEmpty().WithMessage("select one");
+                RuleFor(x => x.DepartmentId).NotEmpty().WithMessage("select one");
+                RuleFor(x => x.SemesterId).NotEmpty().WithMessage("select one");
             } 
         }
 
@@ -60,8 +60,8 @@ namespace Application.Courses
                         Name = request.Name,
                         Credit = request.Credit,
                         Description = request.Description,
-                        DepartmentId = request.DeptId,
-                        SemesterId = request.SemId
+                        DepartmentId = request.DepartmentId,
+                        SemesterId = request.SemesterId
                     };
                     _context.Courses.Add(course);
                     var success = await _context.SaveChangesAsync() > 0;
