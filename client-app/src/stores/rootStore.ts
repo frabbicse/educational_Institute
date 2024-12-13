@@ -6,6 +6,8 @@ import CommonStore from "./commonStore";
 import ModalStore from "./modalStore";
 import CourseStore from "./courseStore";
 import SemesterStore from "./SemesterStore";
+import TeacherStore from "./teacherStore";
+import DesignationStore from "./designationStore";
 
 configure({ enforceActions: 'always' });
 
@@ -15,7 +17,9 @@ export class RootStore {
     commonStore: CommonStore;
     modalStore: ModalStore;
     courseStore: CourseStore;
-    semesterStore: SemesterStore
+    semesterStore: SemesterStore;
+    designationStore: DesignationStore;
+    teacherStore: TeacherStore;
 
     constructor() {
         this.userStore = new UserStore(this);
@@ -24,6 +28,8 @@ export class RootStore {
         this.modalStore = new ModalStore(this);
         this.courseStore = new CourseStore(this);
         this.semesterStore = new SemesterStore(this);
+        this.designationStore = new DesignationStore(this);
+        this.teacherStore = new TeacherStore(this);
     }
 }
 

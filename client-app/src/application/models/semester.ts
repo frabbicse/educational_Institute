@@ -1,5 +1,4 @@
-export interface ISemester {
-    forEach(arg0: (semester: ISemester) => void): unknown;
+export interface ISemester {     
     semesterId: number,
     name: string
 }

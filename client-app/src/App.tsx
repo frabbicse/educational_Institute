@@ -17,6 +17,7 @@ import RegisterForm from "./features/user/RegisterForm";
 import DepartmentDashboard from "./features/departments/DepartmentDashboard";
 import Course from "./features/Course/Course";
 import Semester from "./features/semester/Semester";
+import Teacher from "./features/teacher/Teacher";
 
 export const App = () => {
   const navigate = useNavigate();
@@ -57,6 +58,7 @@ export const App = () => {
           <Route path="/department" element={<DepartmentDashboard />} />
           <Route path="/course" element={<Course />} />
           <Route path="/semester" element={<Semester />} />
+          <Route path="/teacher" element={<Teacher />} />
           <Route element={<NotFound />} />
         </Routes>
       </Container>

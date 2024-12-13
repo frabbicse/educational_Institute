@@ -7,6 +7,9 @@ import { useNavigate } from 'react-router';
 import { createBrowserHistory } from 'history';
 import { ICourse } from '../application/models/course';
 import { ISemester } from '../application/models/semester';
+import { IDesignation } from '../application/models/designation';
+import { promises } from 'dns';
+import { ITeacher } from '../application/models/teacher';
 export const history = createBrowserHistory();
 
 axios.defaults.baseURL = 'https://localhost:44318/api';
@@ -82,10 +85,19 @@ const Course = {
 
 
 const Semester = {
-    list: (): Promise<ISemester> => requests.get('/semester'),
+    list: (): Promise<ISemester[]> => requests.get('/semester'),
     create: (semester: ISemester): Promise<ISemester> => requests.post('/semester', semester)
 }
 
+const Designation = {
+    list: (): Promise<IDesignation[]> => requests.get('/designation'),
+}
+
+const Teacher = {
+    list: (): Promise<ITeacher[]> => requests.get('/teacher'),
+    create: (teacher: ITeacher): Promise<ITeacher> => requests.post('/teacher', teacher)
+}
+
 export default {
-    Departments, User, Course, Semester
+    Departments, User, Course, Semester, Designation, Teacher
 } 

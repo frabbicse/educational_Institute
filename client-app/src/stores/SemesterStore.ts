@@ -2,7 +2,6 @@ import { action, computed, configure, observable, runInAction } from "mobx";
 import { RootStore } from "./rootStore";
 import { ISemester } from "../application/models/semester";
 import agent from "../api/agent";
-import { act } from "react";
 
 configure({ enforceActions: 'always' });
 
@@ -31,7 +30,7 @@ export default class SemesterStore {
 
 
             runInAction(() => {
-                semesters.forEach((semester: ISemester) => {
+                semesters.forEach(semester => {
                     this.semesterList.push(semester);
                 })
             });

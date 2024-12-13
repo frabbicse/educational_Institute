@@ -1,6 +1,6 @@
 import React, { useEffect, useContext } from "react";
 
-import { observer } from "mobx-react-lite";
+import { observer } from "mobx-react";
 import { RootStoreContext } from "../../stores/rootStore";
 
 import { LoadingComponent } from "../../layout/LoadingComponent";
