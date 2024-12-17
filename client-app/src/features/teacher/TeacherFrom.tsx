@@ -55,9 +55,9 @@ const TeacherFrom = () => {
       render={({ handleSubmit, submitting, submitError, invalid, pristine, dirtyFieldsSinceLastSubmit }) => (
         <Form onSubmit={handleSubmit} error>
           <Field component={TextInput} name={"name"} placeholder="Enter Name" />
-          <Field component={TextAreaInput} name={"description"} placeholder="Enter Address" />
+          <Field component={TextAreaInput} name={"address"} placeholder="Enter Address" />
           <Field component={TextInput} name={"email"} placeholder="Enter Email" />
-          <Field component={TextInput} name={"contact"} placeholder="Enter Contact" />
+          <Field component={TextInput} name={"contactNo"} placeholder="Enter Contact" />
 
           <Field component={DropdownInput} name={"designationId"} placeholder="Select Designation" fluid selection options={designationOptions} onChange={(e: any, data: any) => setSelectedDesignation(data.value)} value={selectedDesignation} />
 

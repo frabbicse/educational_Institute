@@ -9,22 +9,23 @@ export const NavBar = () => {
 
   return (
     <Menu fixed="top" inverted>
-      <Container>
-        <Menu.Item header as={Link} to="/dashboard">
-          <img src="/assets/logo.jpg" alt="log" style={{ marginRight: "10px" }} /> Institute Name
-        </Menu.Item>
+      {user?.token && (
+        <Container>
+          <Menu.Item header as={Link} to="/dashboard">
+            <img src="/assets/logo.jpg" alt="log" style={{ marginRight: "10px" }} /> Institute Name
+          </Menu.Item>
 
-        <Menu.Item as={Link} to="/contact" name="Contact" />
-        <Dropdown item text="Setting">
-          <DropdownMenu>
-            <Menu.Item as={Link} to="/department" name="Department" />
-            <Menu.Item as={Link} to="/course" name="Course" />
-            <Menu.Item as={Link} to="/teacher" name="Teacher" />
-            <Menu.Item as={Link} to="/semester" name="Semester" />
-          </DropdownMenu>
-        </Dropdown>
+          <Menu.Item as={Link} to="/contact" name="Contact" />
+          <Dropdown item text="Setting">
+            <DropdownMenu>
+              <Menu.Item as={Link} to="/department" name="Department" />
+              <Menu.Item as={Link} to="/course" name="Course" />
+              <Menu.Item as={Link} to="/teacher" name="Teacher" />
+              <Menu.Item as={Link} to="/semester" name="Semester" />
+            </DropdownMenu>
+          </Dropdown>
 
-        {user && (
+          {/* {user && ( */}
           <Menu.Item position="right">
             <Image avater spaced="right" src={user.image || "assets/user.png"} />
             <Dropdown pointing="top right" text={user.displayName}>
@@ -35,8 +36,9 @@ export const NavBar = () => {
               </Dropdown.Menu>
             </Dropdown>
           </Menu.Item>
-        )}
-      </Container>
+          {/* )} */}
+        </Container>
+      )}
     </Menu>
   );
 };

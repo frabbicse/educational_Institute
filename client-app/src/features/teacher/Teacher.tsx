@@ -3,21 +3,26 @@ import { observer } from "mobx-react";
 import { Grid } from "semantic-ui-react";
 import TeacherFrom from "./TeacherFrom";
 import { RootStoreContext } from "../../stores/rootStore";
+import TeacherList from "./TeacherList";
 
 const Teacher = (props: any) => {
   const rootStore = useContext(RootStoreContext);
+  const { loadTeachers } = rootStore.teacherStore;
   const { loadDesignations } = rootStore.designationStore;
 
   useEffect(() => {
+    loadTeachers();
     loadDesignations();
-  }, [loadDesignations]);
+  }, [loadTeachers, loadDesignations]);
 
   return (
     <Grid>
-      <Grid.Column width={6}>
+      <Grid.Column width={5}>
         <TeacherFrom />
       </Grid.Column>
-      <Grid.Column width={10}></Grid.Column>
+      <Grid.Column width={11}>
+        <TeacherList />
+      </Grid.Column>
     </Grid>
   );
 };

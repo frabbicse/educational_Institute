@@ -1,10 +1,8 @@
-import React, { useContext, Fragment } from "react";
+import React, { useContext } from "react";
 import { Segment, Container, Header, Image, Button } from "semantic-ui-react";
-import { Link, Route, useNavigate } from "react-router-dom";
+import { Route, useNavigate } from "react-router-dom";
 import { RootStoreContext } from "../../stores/rootStore";
 import { Dashboard } from "../dashboard/Dashboard";
-import LoginForm from "../user/LoginForm";
-import RegisterForm from "../user/RegisterForm";
 
 export const HomePage = () => {
   const rootStore = useContext(RootStoreContext);
@@ -18,6 +16,7 @@ export const HomePage = () => {
   function toRegistrationPage() {
     navigate("/register");
   }
+  console.log("isloggedin", isLoggedIn, "User", user);
 
   return (
     <Segment inverted textAlign="center" vertical className="masthead">
@@ -26,7 +25,7 @@ export const HomePage = () => {
           <Image size="massive" src="/assets/logo-2.jpg" alt="logo" style={{ marginBottom: 12 }} />
           Educational Institute Solution
         </Header>
-        <Header />
+
         {isLoggedIn && user ? (
           <>
             <Header as="h2" inverted content={`Welcome to Solution${user.displayName}`} />

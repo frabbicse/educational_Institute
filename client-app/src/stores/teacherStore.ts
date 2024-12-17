@@ -2,6 +2,7 @@ import { action, computed, observable, runInAction } from "mobx";
 import { RootStore } from "./rootStore";
 import { ITeacher } from "../application/models/teacher";
 import agent from "../api/agent";
+import { log } from "console";
 
 export default class TeacherStore {
     rootStore: RootStore;
@@ -22,6 +23,7 @@ export default class TeacherStore {
         this.loadingInitial = true;
         try {
             const teachers = await agent.Teacher.list();
+            console.log("teachers", teachers);
 
             runInAction(() => {
                 teachers.forEach(teacher => {

@@ -18,9 +18,9 @@ namespace Application.Teachers
             public string Address { get; set; }
             public string Email { get; set; }
             public string ContactNo { get; set; }
-            public int DesigId { get; set; }
-            public int DeptId { get; set; }
-            public double CreditTaken { get; set; } 
+            public int DesignationId { get; set; }
+            public int DepartmentId { get; set; }
+            public double CreditTaken { get; set; }
         }
 
         public class CommandValidator : AbstractValidator<Command>
@@ -31,8 +31,8 @@ namespace Application.Teachers
 
                 RuleFor(t => t.Email).EmailAddress().WithMessage("please, put valide email address");
                 RuleFor(t => t.ContactNo).NotEmpty().WithMessage("provide contact no");
-                RuleFor(t => t.DesigId).NotEmpty().WithMessage("select one");
-                RuleFor(t => t.DeptId).NotEmpty().WithMessage("select one");
+                RuleFor(t => t.DesignationId).NotEmpty().WithMessage("select one");
+                RuleFor(t => t.DepartmentId).NotEmpty().WithMessage("select one");
                 RuleFor(t => t.CreditTaken).NotEmpty().WithMessage("number credits taken");
             }
         }
@@ -47,9 +47,13 @@ namespace Application.Teachers
             }
             public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)
             {
-                //if (request.Id == 0)
-                //{
-                    if (_context.Teachers.Any(t => t.Email != request.Email))
+
+                try
+                {//if (request.Id == 0)
+                 //{
+                    var exists = _context.Teachers.Any(t => t.Email == request.Email);
+
+                    if (!exists)
                     {
                         var teacher = new Teacher
                         {
@@ -57,9 +61,9 @@ namespace Application.Teachers
                             Address = request.Address,
                             Email = request.Email,
                             ContactNo = request.ContactNo,
-                            DesignationId = request.DesigId,
-                            DepartmentId = request.DeptId,
-                            CreditTaken = request.CreditTaken 
+                            DesignationId = request.DesignationId,
+                            DepartmentId = request.DepartmentId,
+                            CreditTaken = request.CreditTaken
                         };
                         _context.Teachers.Add(teacher);
                         var success = await _context.SaveChangesAsync() > 0;
@@ -71,11 +75,17 @@ namespace Application.Teachers
                     {
                         throw new Exception("Exists");
                     }
-                //}
-                //else
-                //{
+                    //}
+                    //else
+                    //{
 
-                //}
+                    //}
+                }
+                catch (Exception e)
+                {
+
+                    throw new Exception(e.Message);
+                }
             }
         }
     }
