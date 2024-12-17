@@ -53,6 +53,7 @@ export const App = () => {
           <Route path="/" element={<HomePage />} />
           <Route path="/login" element={<LoginForm />} />
           <Route path="/register" element={<RegisterForm />} />
+          <Route path="*" element={<NotFound />} />
 
           <Route element={<ProtectedRoute />}>
             <Route path="/dashboard" element={<Dashboard />} />
@@ -62,8 +63,6 @@ export const App = () => {
             <Route path="/semester" element={<Semester />} />
             <Route path="/teacher" element={<Teacher />} />
           </Route>
-
-          <Route element={<NotFound />} />
         </Routes>
       </Container>
     </>

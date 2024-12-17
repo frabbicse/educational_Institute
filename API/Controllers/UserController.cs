@@ -27,10 +27,10 @@ namespace API.Controllers
             return await Mediator.Send(new CurrentUser.Query());
         }
 
-        [HttpPost("currentUserState")]
-        public async Task<ActionResult<User>> CurrentUserState(CurrentUserState.Query query)
+        [HttpGet("{id}")]
+        public async Task<ActionResult<User>> CurrentUserState(string id)
         {
-            return await Mediator.Send(query);
+            return await Mediator.Send(new CurrentUserState.Query { Id = id });
         }
     }
 }

@@ -72,13 +72,25 @@ export default class UserStore {
     @action loginState = async () => {
         try {
             var token = window.localStorage.getItem("jwt");
+            const currentPath = window.location.pathname + window.location.search;
             if (token) {
                 let decoded: any = jwtDecode<JwtPayload>(token);
 
                 const nameId = decoded.nameid;
-                const uniqueName = decoded.unique_name;
-
                 const user = await agent.User.currentState(nameId);
+                user.token = token
+                if (user) {
+                    runInAction(() => {
+                        this.user = user;
+                        if (this.rootStore.commonStore.navigate) {
+                            if (currentPath !== "/login") {
+                                this.rootStore.commonStore.navigate(currentPath);
+                            } else {
+                                this.rootStore.commonStore.navigate("/dashboard");
+                            }
+                        }
+                    })
+                }
             }
 
         } catch (error) {

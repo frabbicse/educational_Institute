@@ -16,8 +16,7 @@ export const HomePage = () => {
   function toRegistrationPage() {
     navigate("/register");
   }
-  console.log("isloggedin", isLoggedIn, "User", user);
-
+  
   return (
     <Segment inverted textAlign="center" vertical className="masthead">
       <Container text>
