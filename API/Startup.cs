@@ -70,9 +70,9 @@ namespace API
             //    var policy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
 
             //    opt.Filters.Add(new AuthorizeFilter(policy));
-            //})
-            //    .AddFluentValidation(config => config.RegisterValidatorsFromAssemblyContaining<Create>())
-            //    .SetCompatibilityVersion(CompatibilityVersion.Latest);
+            //});
+                //.AddFluentValidation(config => config.RegisterValidatorsFromAssemblyContaining<Create>())
+                //.SetCompatibilityVersion(CompatibilityVersion.Latest);
 
             // services.AddIdentityCore<AppUser>()
             // .AddRoles<IdentityRole>()
@@ -122,8 +122,8 @@ namespace API
 
             app.UseRouting();
             app.UseAuthentication();
-            app.UseCors("CorsPolicy");
             app.UseAuthorization();
+            app.UseCors("CorsPolicy");
 
             app.UseEndpoints(endpoints =>
             {

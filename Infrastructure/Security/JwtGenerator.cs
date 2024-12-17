@@ -23,12 +23,15 @@ namespace Infrastructure
         {
             var claims =
                 new List<Claim> {
-                    new Claim(Microsoft
-                            .IdentityModel
-                            .JsonWebTokens
-                            .JwtRegisteredClaimNames
-                            .NameId,
-                        user.UserName)
+                    //new Claim(Microsoft
+                    //        .IdentityModel
+                    //        .JsonWebTokens
+                    //        .JwtRegisteredClaimNames
+                    //        .NameId,
+                    //    user.UserName)
+
+                    new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+                    new Claim(ClaimTypes.Name, user.UserName)
                 };
 
             var creds =
@@ -36,7 +39,8 @@ namespace Infrastructure
                     SecurityAlgorithms.HmacSha256Signature);
 
             var tokenDescriptor =
-                new SecurityTokenDescriptor {
+                new SecurityTokenDescriptor
+                {
                     Subject = new ClaimsIdentity(claims),
                     Expires = DateTime.Now.AddDays(7),
                     SigningCredentials = creds

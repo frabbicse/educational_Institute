@@ -1,14 +1,15 @@
-export interface IUser{
+export interface IUser {
     username: string,
-    displayName: string, 
+    displayName: string,
     token: string,
-    image? : string
+    image?: string
 }
 
 
-export interface IUserFormValues{
+export interface IUserFormValues {
     email: string,
     password: string,
     displayName?: string,
     username?: string
+    id: string
 }

@@ -2,8 +2,8 @@ import { observable, action, computed, runInAction } from "mobx";
 import { IUser, IUserFormValues } from "../application/models/user";
 import agent from "../api/agent";
 import { RootStore } from "./rootStore";
-import { useNavigate } from "react-router";
 import { createBrowserHistory } from 'history';
+import { jwtDecode, JwtPayload } from "jwt-decode";
 export const history = createBrowserHistory();
 
 export default class UserStore {
@@ -68,4 +68,22 @@ export default class UserStore {
             this.rootStore.commonStore.navigate('/');
         }
     }
+
+    @action loginState = async () => {
+        try {
+            var token = window.localStorage.getItem("jwt");
+            if (token) {
+                let decoded: any = jwtDecode<JwtPayload>(token);
+
+                const nameId = decoded.nameid;
+                const uniqueName = decoded.unique_name;
+
+                const user = await agent.User.currentState(nameId);
+            }
+
+        } catch (error) {
+
+        }
+    }
 }
+

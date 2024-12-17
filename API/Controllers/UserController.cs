@@ -26,5 +26,11 @@ namespace API.Controllers
         {
             return await Mediator.Send(new CurrentUser.Query());
         }
+
+        [HttpPost("currentUserState")]
+        public async Task<ActionResult<User>> CurrentUserState(CurrentUserState.Query query)
+        {
+            return await Mediator.Send(query);
+        }
     }
 }

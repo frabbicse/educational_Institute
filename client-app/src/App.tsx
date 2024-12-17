@@ -18,12 +18,13 @@ import DepartmentDashboard from "./features/departments/DepartmentDashboard";
 import Course from "./features/Course/Course";
 import Semester from "./features/semester/Semester";
 import Teacher from "./features/teacher/Teacher";
+import ProtectedRoute from "./features/ProtectedRoute";
 
 export const App = () => {
   const navigate = useNavigate();
   const rootStore = useContext(RootStoreContext);
   const { setAppLoaded, token, appLoaded } = rootStore.commonStore;
-  const { getUser } = rootStore.userStore;
+  const { getUser, loginState } = rootStore.userStore;
 
   useEffect(() => {
     rootStore.commonStore.setNavigate(navigate); // Set navigate globally
@@ -32,10 +33,11 @@ export const App = () => {
   useEffect(() => {
     if (token) {
       getUser().finally(() => setAppLoaded());
+      loginState();
     } else {
       setAppLoaded();
     }
-  }, [getUser, setAppLoaded, token]);
+  }, [getUser, setAppLoaded, token, loginState]);
 
   // if (!appLoaded) return <LoadingComponent content="Loading ap....." />;
 
@@ -49,16 +51,18 @@ export const App = () => {
       <Container style={{ marginTop: "7em" }}>
         <Routes>
           <Route path="/" element={<HomePage />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/contact" element={<Contact />} />
-
           <Route path="/login" element={<LoginForm />} />
           <Route path="/register" element={<RegisterForm />} />
 
-          <Route path="/department" element={<DepartmentDashboard />} />
-          <Route path="/course" element={<Course />} />
-          <Route path="/semester" element={<Semester />} />
-          <Route path="/teacher" element={<Teacher />} />
+          <Route element={<ProtectedRoute />}>
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/department" element={<DepartmentDashboard />} />
+            <Route path="/course" element={<Course />} />
+            <Route path="/semester" element={<Semester />} />
+            <Route path="/teacher" element={<Teacher />} />
+          </Route>
+
           <Route element={<NotFound />} />
         </Routes>
       </Container>
