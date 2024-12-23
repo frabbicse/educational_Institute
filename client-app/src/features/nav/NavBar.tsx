@@ -21,6 +21,7 @@ export const NavBar = () => {
               <Menu.Item as={Link} to="/department" name="Department" />
               <Menu.Item as={Link} to="/course" name="Course" />
               <Menu.Item as={Link} to="/teacher" name="Teacher" />
+              <Menu.Item as={Link} to="/assign-course" name="Assign Course" />
               <Menu.Item as={Link} to="/semester" name="Semester" />
             </DropdownMenu>
           </Dropdown>

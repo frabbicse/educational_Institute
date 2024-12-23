@@ -31,8 +31,8 @@ namespace Application.Course_Assign_to_Teacher
                                select new CourseAssignDto()
                                {
                                    Id = ca.Id,
-                                   DeptId = d.DepartmentId,
-                                   Department = d.Name,
+                                   DepartmentId = d.DepartmentId,
+                                   DepartmentName = d.Name,
                                    TeacherId = t.Id,
                                    TeacherName = t.Name,
                                    CreditTaken = t.CreditTaken,

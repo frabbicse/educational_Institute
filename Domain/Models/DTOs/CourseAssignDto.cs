@@ -8,8 +8,8 @@ namespace Domain.Models.DTOs
     public class CourseAssignDto
     {
         public int Id { get; set; } 
-        public int DeptId { get; set; }
-        public string Department { get; set; }
+        public int DepartmentId { get; set; }
+        public string DepartmentName { get; set; }
         public int TeacherId { get; set; }
         public string TeacherName { get; set; }
         public double CreditTaken { get; set; }
