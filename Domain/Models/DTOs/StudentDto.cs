@@ -12,9 +12,9 @@ namespace Domain.Models.DTOs
         public string ContactNo { get; set; }
         public DateTime Date { get; set; }
         public string Address { get; set; }
-        public int DeptId { get; set; }
+        public int DepartmentId { get; set; }
         [DisplayName("Department")]
-        public string DeptName { get; set; }
+        public string DepartmentName { get; set; }
         public string RegNo { get; set; }
     
     }

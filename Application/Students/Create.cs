@@ -20,7 +20,7 @@ namespace Application.Students
             public string ContactNo { get; set; }
             public DateTime Date { get; set; }
             public string Address { get; set; }
-            public int DeptId { get; set; }
+            public int DepartmentId { get; set; }
             public string RegNo { get; set; }
         }
         public class Handler : IRequestHandler<Command>
@@ -39,7 +39,7 @@ namespace Application.Students
                     ContactNo = request.ContactNo,
                     Date = request.Date,
                     Address = request.Address,
-                    DepartmentId = request.DeptId,
+                    DepartmentId = request.DepartmentId,
                     RegNo = request.RegNo
                 };
                 _context.Students.Add(student);

@@ -33,8 +33,8 @@ namespace Application.Students
                                           Date = s.Date,
                                           Address = s.Address,
                                           RegNo = s.RegNo,
-                                          DeptId = d.DepartmentId,
-                                          DeptName = d.Name
+                                          DepartmentId = d.DepartmentId,
+                                          DepartmentName = d.Name
                                       }).ToListAsync();
                 return students;
             }

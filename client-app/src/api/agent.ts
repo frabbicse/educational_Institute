@@ -11,6 +11,7 @@ import { IDesignation } from '../application/models/designation';
 import { promises } from 'dns';
 import { ITeacher } from '../application/models/teacher';
 import { ICourseAssignToTeacher } from '../application/models/courseAssign';
+import { IStudent } from '../application/models/student';
 export const history = createBrowserHistory();
 
 axios.defaults.baseURL = 'https://localhost:44318/api';
@@ -105,6 +106,11 @@ const CourseAssignToTeacher = {
     create: (courseAssign: ICourseAssignToTeacher): Promise<ITeacher> => requests.post('/courseAssign', courseAssign)
 }
 
+const Student = {
+    list: (): Promise<IStudent[]> => requests.get('/student'),
+    create: (student: IStudent): Promise<ITeacher> => requests.post('/student', student)
+}
+
 export default {
-    Departments, User, Course, Semester, Designation, Teacher, CourseAssignToTeacher
+    Departments, User, Course, Semester, Designation, Teacher, CourseAssignToTeacher, Student
 } 

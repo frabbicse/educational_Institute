@@ -9,6 +9,7 @@ import SemesterStore from "./SemesterStore";
 import TeacherStore from "./teacherStore";
 import DesignationStore from "./designationStore";
 import CourseAssignToTeacher from "./courseAssignToTeacherStore";
+import StudentStore from "./studentStore";
 
 configure({ enforceActions: 'always' });
 
@@ -22,6 +23,7 @@ export class RootStore {
     designationStore: DesignationStore;
     teacherStore: TeacherStore;
     assignCourse: CourseAssignToTeacher;
+    studentStore: StudentStore;
 
     constructor() {
         this.userStore = new UserStore(this);
@@ -33,6 +35,7 @@ export class RootStore {
         this.designationStore = new DesignationStore(this);
         this.teacherStore = new TeacherStore(this);
         this.assignCourse = new CourseAssignToTeacher(this);
+        this.studentStore = new StudentStore(this);
     }
 }
 
