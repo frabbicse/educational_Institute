@@ -20,6 +20,7 @@ import Semester from "./features/semester/Semester";
 import Teacher from "./features/teacher/Teacher";
 import ProtectedRoute from "./features/ProtectedRoute";
 import CourseAssign from "./features/course assign to teacher/CourseAssign";
+import Student from "./features/student/Student";
 
 export const App = () => {
   const navigate = useNavigate();
@@ -64,6 +65,7 @@ export const App = () => {
             <Route path="/semester" element={<Semester />} />
             <Route path="/teacher" element={<Teacher />} />
             <Route path="/assign-course" element={<CourseAssign />} />
+            <Route path="/student" element={<Student />} />
           </Route>
         </Routes>
       </Container>

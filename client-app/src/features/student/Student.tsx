@@ -3,6 +3,8 @@ import { RootStoreContext } from "../../stores/rootStore";
 import { LoadingComponent } from "../../layout/LoadingComponent";
 import { observer } from "mobx-react";
 import StudentForm from "./StudentForm";
+import StudentList from "./StudentList";
+import { Grid } from "semantic-ui-react";
 
 const Student = () => {
   const rootStore = useContext(RootStoreContext);
@@ -17,14 +19,14 @@ const Student = () => {
   }
 
   return (
-    <div>
-      <div>
+    <Grid>
+      <Grid.Column width={6}>
         <StudentForm />
-          </div>
-          <div>
-              
-          </div>
-    </div>
+      </Grid.Column>
+      <Grid.Column width={10}>
+        <StudentList />
+      </Grid.Column>
+    </Grid>
   );
 };
 

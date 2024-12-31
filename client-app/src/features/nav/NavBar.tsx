@@ -23,6 +23,7 @@ export const NavBar = () => {
               <Menu.Item as={Link} to="/teacher" name="Teacher" />
               <Menu.Item as={Link} to="/assign-course" name="Assign Course" />
               <Menu.Item as={Link} to="/semester" name="Semester" />
+              <Menu.Item as={Link} to="/student" name="Student" />
             </DropdownMenu>
           </Dropdown>
 

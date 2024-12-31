@@ -1,4 +1,4 @@
-import { action, observable, runInAction } from "mobx";
+import { action, computed, observable, runInAction } from "mobx";
 import { RootStore } from "./rootStore";
 import { IStudent } from "../application/models/student";
 import agent from "../api/agent";
@@ -16,6 +16,10 @@ export default class StudentStore {
     @observable student: IStudent | undefined;
     @observable loadingInital = false;
     @observable submitting = false;
+
+    @computed get studentList() {
+        return Array.from(this.students.values());
+    }
 
     @action loadStudents = async () => {
         this.loadingInital = true
