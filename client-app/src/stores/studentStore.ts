@@ -25,6 +25,8 @@ export default class StudentStore {
         this.loadingInital = true
         try {
             const students = await agent.Student.list();
+            console.log("students", students);
+
             runInAction(() => {
                 students.forEach((student) => {
                     this.students.push(student);

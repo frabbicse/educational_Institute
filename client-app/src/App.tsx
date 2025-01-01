@@ -21,6 +21,8 @@ import Teacher from "./features/teacher/Teacher";
 import ProtectedRoute from "./features/ProtectedRoute";
 import CourseAssign from "./features/course assign to teacher/CourseAssign";
 import Student from "./features/student/Student";
+import "react-widgets/styles.css";
+ 
 
 export const App = () => {
   const navigate = useNavigate();

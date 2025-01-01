@@ -2,10 +2,13 @@ import { observer } from "mobx-react";
 import React, { useContext } from "react";
 import { Grid, Table } from "semantic-ui-react";
 import { RootStoreContext } from "../../stores/rootStore";
+import Moment from "react-moment";
 
 const StudentList = () => {
   const rootStore = useContext(RootStoreContext);
   const { studentList } = rootStore.studentStore;
+
+  console.log("studentlist", studentList);
 
   return (
     <Grid>
@@ -15,6 +18,7 @@ const StudentList = () => {
             <Table.Row>
               <Table.HeaderCell>Sl.</Table.HeaderCell>
               <Table.HeaderCell>Name</Table.HeaderCell>
+              <Table.HeaderCell>Reg. No.</Table.HeaderCell>
               <Table.HeaderCell>Email</Table.HeaderCell>
               <Table.HeaderCell>Contact</Table.HeaderCell>
               <Table.HeaderCell>Date</Table.HeaderCell>
@@ -26,12 +30,15 @@ const StudentList = () => {
             {studentList.map((student, index) => (
               <Table.Row key={index}>
                 <Table.Cell>{index + 1}</Table.Cell>
-                <Table.Cell>{student.Name}</Table.Cell>
-                <Table.Cell>{student?.Email}</Table.Cell>
-                <Table.Cell>{student?.ContactNo}</Table.Cell>
-                <Table.Cell>{student?.Date}</Table.Cell>
-                <Table.Cell>{student?.Address}</Table.Cell>
-                <Table.Cell>{student?.DepartmentName}</Table.Cell>
+                <Table.Cell>{student.name}</Table.Cell>
+                <Table.Cell>{student.regNo}</Table.Cell>
+                <Table.Cell>{student?.email}</Table.Cell>
+                <Table.Cell>{student?.contactNo}</Table.Cell>
+                <Table.Cell>
+                  <Moment format="DD/MM/YYYY">{student?.date}</Moment>
+                </Table.Cell>
+                <Table.Cell>{student?.address}</Table.Cell>
+                <Table.Cell>{student?.departmentName}</Table.Cell>
               </Table.Row>
             ))}
           </Table.Body>

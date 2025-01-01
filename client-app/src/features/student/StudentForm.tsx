@@ -19,7 +19,7 @@ interface IProps {
 const validate = combineValidators({
   name: isRequired("name"),
   email: isRequired("email"),
-  contact: isRequired("contact no"),
+  contactNo: isRequired("contact no"),
 });
 
 const StudentForm = () => {
@@ -48,12 +48,12 @@ const StudentForm = () => {
         <Form onSubmit={handleSubmit} error>
           <Field component={TextInput} name="name" placeholder="Enter Name" />
           <Field component={TextInput} name="email" placeholder="Enter Email" />
-          <Field component={TextInput} name="contact" placeholder="Enter Contact No." />
+          <Field component={TextInput} name="contactNo" placeholder="Enter Contact No." />
 
           <Field component={DateInput} name="date" placeholder="Enter Date" />
 
           <Field component={TextAreaInput} name="address" placeholder="Enter address" />
-          
+
           <Field component={DropdownInput} name="departmentId" fluid selection placeholder="Select Department" options={departmentOptions} onChange={(e: any, data: any) => setSelectedDept(data.value)} value={selectedDept} />
 
           {submitError && !dirtyFieldsSinceLastSubmit && pristine && <ErrorMessage error={submitError} text="" />}

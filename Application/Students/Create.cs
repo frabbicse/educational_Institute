@@ -1,10 +1,9 @@
 ﻿using Domain.Models.Entity;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using Persistence;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -26,12 +25,24 @@ namespace Application.Students
         public class Handler : IRequestHandler<Command>
         {
             private readonly ApplicationDataContext _context;
+
             public Handler(ApplicationDataContext context)
             {
                 _context = context;
             }
             public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)
             {
+                int i = 1;
+                var departmentCode = await (from dept in _context.Departments
+                                            where dept.DepartmentId == request.DepartmentId
+                                            select new
+                                            {
+                                                dept.Code
+                                            }).FirstOrDefaultAsync();
+
+                string date = DateTime.Now.Year.ToString();
+
+                string regNo = departmentCode.Code.ToString() + "-" + date + "-" + (Convert.ToInt32(_context.Students.Where(dpt=>dpt.DepartmentId == request.DepartmentId).Count()) + i);
                 var student = new Student
                 {
                     Name = request.Name,
@@ -40,11 +51,11 @@ namespace Application.Students
                     Date = request.Date,
                     Address = request.Address,
                     DepartmentId = request.DepartmentId,
-                    RegNo = request.RegNo
+                    RegNo = regNo,
                 };
                 _context.Students.Add(student);
-
-                if (_context.Students.Any(s => s.RegNo != request.RegNo))
+ 
+                if (!_context.Students.Any(s => s.RegNo == regNo) && !_context.Students.Any(s => s.Email == request.Email))
                 {
                     var success = await _context.SaveChangesAsync() > 0;
                     if (success)
