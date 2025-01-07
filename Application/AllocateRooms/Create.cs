@@ -15,7 +15,7 @@ namespace Application.Student_Result
         public class Command : IRequest
         {
             public int Id { get; set; }
-            public int DeptId { get; set; }
+            public int DepartmentId { get; set; }
             public int CourseId { get; set; }
             public int RoomId { get; set; }
             public int DayId { get; set; }
@@ -34,7 +34,7 @@ namespace Application.Student_Result
             {
                 var allocateRoom = new AllocateRoom
                 {
-                    DepartmentId = request.DeptId,
+                    DepartmentId = request.DepartmentId,
                     CourseId = request.CourseId,
                     RoomId = request.RoomId,
                     DayId = request.DayId,

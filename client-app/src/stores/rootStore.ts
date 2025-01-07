@@ -10,6 +10,9 @@ import TeacherStore from "./teacherStore";
 import DesignationStore from "./designationStore";
 import CourseAssignToTeacher from "./courseAssignToTeacherStore";
 import StudentStore from "./studentStore";
+import AllocateRoomStore from "./AllocateRoomStore";
+import RoomStore from "./RoomStore";
+import DayStore from "./dayStore";
 
 configure({ enforceActions: 'always' });
 
@@ -24,6 +27,9 @@ export class RootStore {
     teacherStore: TeacherStore;
     assignCourse: CourseAssignToTeacher;
     studentStore: StudentStore;
+    allocateRoomStore: AllocateRoomStore;
+    roomStore: RoomStore;
+    dayStore: DayStore
 
     constructor() {
         this.userStore = new UserStore(this);
@@ -36,6 +42,9 @@ export class RootStore {
         this.teacherStore = new TeacherStore(this);
         this.assignCourse = new CourseAssignToTeacher(this);
         this.studentStore = new StudentStore(this);
+        this.allocateRoomStore = new AllocateRoomStore(this);
+        this.roomStore = new RoomStore(this);
+        this.dayStore = new DayStore(this);
     }
 }
 

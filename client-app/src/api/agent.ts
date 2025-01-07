@@ -12,6 +12,9 @@ import { promises } from 'dns';
 import { ITeacher } from '../application/models/teacher';
 import { ICourseAssignToTeacher } from '../application/models/courseAssign';
 import { IStudent } from '../application/models/student';
+import { IAllocateRoom } from '../application/models/allocateRoom';
+import { IRoom } from '../application/models/room';
+import { IDay } from '../application/models/day';
 export const history = createBrowserHistory();
 
 axios.defaults.baseURL = 'https://localhost:44318/api';
@@ -111,6 +114,18 @@ const Student = {
     create: (student: IStudent): Promise<ITeacher> => requests.post('/student', student)
 }
 
+const AllocateRoom = {
+    list: (): Promise<IAllocateRoom[]> => requests.get('/allocateRoom'),
+    create: (allocate: IAllocateRoom): Promise<IAllocateRoom> => requests.post('/allocateRoom', allocate)
+}
+
+const Room = {
+    list: (): Promise<IRoom[]> => requests.get('/room'),
+}
+const Day = {
+    list: (): Promise<IDay[]> => requests.get('/day'),
+}
+
 export default {
-    Departments, User, Course, Semester, Designation, Teacher, CourseAssignToTeacher, Student
+    Departments, User, Course, Semester, Designation, Teacher, CourseAssignToTeacher, Student, AllocateRoom, Room, Day
 } 

@@ -22,7 +22,7 @@ import ProtectedRoute from "./features/ProtectedRoute";
 import CourseAssign from "./features/course assign to teacher/CourseAssign";
 import Student from "./features/student/Student";
 import "react-widgets/styles.css";
- 
+import AllocateRoom from "./features/allocateRoom/AllocateRoom";
 
 export const App = () => {
   const navigate = useNavigate();
@@ -68,6 +68,7 @@ export const App = () => {
             <Route path="/teacher" element={<Teacher />} />
             <Route path="/assign-course" element={<CourseAssign />} />
             <Route path="/student" element={<Student />} />
+            <Route path="/allocate-room" element={<AllocateRoom />} />
           </Route>
         </Routes>
       </Container>
